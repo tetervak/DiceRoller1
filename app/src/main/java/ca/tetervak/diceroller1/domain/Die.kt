@@ -7,7 +7,7 @@ class Die() {
 
     // null means not rolled yet
     var value: Int? = null
-        set(n: Int?) {
+        set(n) {
             if (n in 1..6 || n == null) {
                 field = n
             } else {
@@ -22,5 +22,9 @@ class Die() {
 
     fun roll() {
         value = (1..6).random()
+    }
+
+    fun reset() {
+        value = null
     }
 }

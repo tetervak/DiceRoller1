@@ -3,4 +3,6 @@
     <string name="reset">Reset</string>
     <string name="roll">Roll</string>
     <string name="space" />
+    <string name="die_rolled">Die Rolled</string>
+    <string name="app_reset">App Reset</string>
 </resources>
