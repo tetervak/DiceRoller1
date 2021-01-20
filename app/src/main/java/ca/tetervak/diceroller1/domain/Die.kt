@@ -5,13 +5,17 @@ import java.lang.IllegalArgumentException
 
 class Die() {
 
+    companion object{
+        const val TAG = "Die"
+    }
+
     // null means not rolled yet
     var value: Int? = null
         set(n) {
             if (n in 1..6 || n == null) {
                 field = n
             } else {
-                Log.e("Die", "Illegal die value $n")
+                Log.e(TAG, "Illegal die value $n")
                 //throw IllegalArgumentException("Illegal die value $n")
             }
         }
