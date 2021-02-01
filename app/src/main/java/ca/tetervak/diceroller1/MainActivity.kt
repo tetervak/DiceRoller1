@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import ca.tetervak.diceroller1.databinding.ActivityMainBinding
 import ca.tetervak.diceroller1.domain.Die
 
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var  binding: ActivityMainBinding
-    private val die = Die()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,43 +26,29 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        if(savedInstanceState is Bundle){
-            val savedValue: Int = savedInstanceState.getInt(CURRENT_DIE_VALUE)
-            if(savedValue > 0){
-                Log.d(TAG, "onCreate: recovering the saved instance.")
-                die.value = savedValue
-                displayDieValue()
-            }
-        }
-
+        displayDieValue()
         binding.rollButton.setOnClickListener { onRoll() }
         binding.resetButton.setOnClickListener { onReset() }
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // store zero if not rolled
-        outState.putInt(CURRENT_DIE_VALUE, die.value ?: 0)
-    }
-
     private fun onRoll() {
         Log.d(TAG, "onRoll() called")
-        die.roll()
+        viewModel.die.roll()
         displayDieValue()
         Toast.makeText(this, getString(R.string.die_rolled), Toast.LENGTH_SHORT).show()
     }
 
     private fun onReset() {
         Log.d(TAG, "onReset() called ")
-        die.reset()
+        viewModel.die.reset()
         displayDieValue()
         Toast.makeText(this, getString(R.string.app_reset), Toast.LENGTH_SHORT).show()
     }
 
     private fun displayDieValue() {
         Log.d(TAG, "displayDieValue() called ")
-        binding.dieValue.text = die.value?.toString() ?: " "
+        binding.dieValue.text = viewModel.die.value?.toString() ?: " "
     }
 
 }
