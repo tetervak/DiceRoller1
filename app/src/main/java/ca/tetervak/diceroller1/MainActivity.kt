@@ -34,21 +34,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun onRoll() {
         Log.d(TAG, "onRoll() called")
-        viewModel.die.roll()
+        viewModel.rollDie()
         displayDieValue()
         Toast.makeText(this, getString(R.string.die_rolled), Toast.LENGTH_SHORT).show()
     }
 
     private fun onReset() {
         Log.d(TAG, "onReset() called ")
-        viewModel.die.reset()
+        viewModel.resetDie()
         displayDieValue()
         Toast.makeText(this, getString(R.string.app_reset), Toast.LENGTH_SHORT).show()
     }
 
     private fun displayDieValue() {
         Log.d(TAG, "displayDieValue() called ")
-        binding.dieValue.text = viewModel.die.value?.toString() ?: " "
+        binding.dieValue.text = viewModel.dieValue()
     }
 
 }

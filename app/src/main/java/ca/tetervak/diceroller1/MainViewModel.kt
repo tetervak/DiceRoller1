@@ -5,7 +5,16 @@ import ca.tetervak.diceroller1.domain.Die
 
 class MainViewModel: ViewModel() {
 
-    val die = Die()
+    private val die = Die()
 
+    fun dieValue() = die.value?.toString() ?: " "
+
+    fun rollDie(){
+        die.roll()
+    }
+
+    fun resetDie(){
+        die.reset()
+    }
 
 }
