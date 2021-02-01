@@ -26,7 +26,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        displayDieValue()
+        viewModel.dieValue.observe(this){
+            displayDieValue(it)
+        }
+
         binding.rollButton.setOnClickListener { onRoll() }
         binding.resetButton.setOnClickListener { onReset() }
 
@@ -35,20 +38,18 @@ class MainActivity : AppCompatActivity() {
     private fun onRoll() {
         Log.d(TAG, "onRoll() called")
         viewModel.rollDie()
-        displayDieValue()
         Toast.makeText(this, getString(R.string.die_rolled), Toast.LENGTH_SHORT).show()
     }
 
     private fun onReset() {
         Log.d(TAG, "onReset() called ")
         viewModel.resetDie()
-        displayDieValue()
         Toast.makeText(this, getString(R.string.app_reset), Toast.LENGTH_SHORT).show()
     }
 
-    private fun displayDieValue() {
+    private fun displayDieValue(dieValue: String) {
         Log.d(TAG, "displayDieValue() called ")
-        binding.dieValue.text = viewModel.dieValue()
+        binding.dieValue.text = dieValue
     }
 
 }
